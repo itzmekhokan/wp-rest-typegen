@@ -103,6 +103,24 @@ export interface WPRestTypes {
 }
 ```
 
+## Changelog
+
+### 0.1.2
+- Fix `--no-registry`, which was advertised but threw "Unknown option" (enabled
+  `parseArgs` negation).
+- Expose the `./package.json` subpath so tooling can read it.
+- Add CLI subprocess integration tests.
+
+### 0.1.1
+- Ship compiled JavaScript in `dist/` so the package runs when installed from npm
+  (Node refuses to strip TypeScript types under `node_modules`). Runtime stays
+  dependency-free. Requires Node ≥ 20.16.
+
+### 0.1.0
+- Initial release. **Deprecated** — shipped raw `.ts` and fails on install; use
+  0.1.1 or later.
+
 ## License
 
 GPL-2.0-or-later
+
