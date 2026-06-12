@@ -1,6 +1,6 @@
 {
 	"name": "wp-rest-typegen",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "Generate TypeScript types from a live WordPress REST API — core endpoints plus custom post types, fields, and taxonomies. Zero dependencies.",
 	"keywords": [
 		"wordpress",
@@ -12,22 +12,29 @@
 	],
 	"type": "module",
 	"bin": {
-		"wp-rest-typegen": "src/cli.ts"
+		"wp-rest-typegen": "dist/cli.js"
 	},
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
 	"exports": {
-		".": "./src/index.ts"
+		".": {
+			"types": "./dist/index.d.ts",
+			"default": "./dist/index.js"
+		}
 	},
 	"files": [
-		"src",
+		"dist",
 		"README.md"
 	],
 	"scripts": {
+		"build": "rm -rf dist && tsc -p tsconfig.build.json",
 		"demo": "node src/cli.ts --input fixtures/post-schema.json --context edit",
 		"test": "node --test 'tests/*.test.ts'",
-		"typecheck": "tsc --noEmit"
+		"typecheck": "tsc --noEmit",
+		"prepublishOnly": "npm run build && npm test"
 	},
 	"engines": {
-		"node": ">=22.6.0"
+		"node": ">=20.0.0"
 	},
 	"repository": {
 		"type": "git",
@@ -42,6 +49,6 @@
 	"dependencies": {},
 	"devDependencies": {
 		"@types/node": "^22.0.0",
-		"typescript": "^5.4.0"
+		"typescript": "^5.7.0"
 	}
 }

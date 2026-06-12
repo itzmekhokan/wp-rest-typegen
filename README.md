@@ -7,8 +7,8 @@
 
 Generate TypeScript types straight from a **live WordPress REST API** — not just core
 endpoints, but every custom post type, custom field (`register_rest_field`), and
-taxonomy registered on the site. **Zero runtime dependencies** (Node 22's built-in
-`fetch` + native TypeScript execution).
+taxonomy registered on the site. **Zero runtime dependencies** — ships as plain
+compiled JavaScript and runs on Node ≥ 20 using the built-in `fetch`.
 
 ```bash
 npx wp-rest-typegen https://example.com -o wp-types.d.ts

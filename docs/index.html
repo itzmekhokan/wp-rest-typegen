@@ -63,7 +63,7 @@
     <p class="tag">Generate TypeScript types straight from a <strong>live WordPress REST API</strong> — core endpoints <em>plus</em> your custom post types, fields, and taxonomies. Zero runtime dependencies.</p>
     <div class="badges">
       <span class="badge">npm i -D wp-rest-typegen</span>
-      <span class="badge">Node ≥ 22.6</span>
+      <span class="badge">Node ≥ 20</span>
       <span class="badge">0 dependencies</span>
       <span class="badge">GPL-2.0-or-later</span>
     </div>
@@ -81,7 +81,7 @@
     <div class="cards">
       <div class="card"><h3>Discovers everything</h3><p class="muted">Core routes, custom post types, <code>register_rest_field</code> additions, and taxonomies — pulled from the live route index.</p></div>
       <div class="card"><h3>Context-aware</h3><p class="muted">Emit <code>view</code>, <code>edit</code>, or <code>embed</code> shapes. Edit-only fields like <code>title.raw</code> appear only where they should.</p></div>
-      <div class="card"><h3>Zero runtime deps</h3><p class="muted">Built on Node 22's native <code>fetch</code> and TypeScript execution. No build step, nothing to audit.</p></div>
+      <div class="card"><h3>Zero runtime deps</h3><p class="muted">Ships as plain compiled JavaScript on Node's built-in <code>fetch</code> — nothing to audit, nothing to pull in.</p></div>
       <div class="card"><h3>Type-safe by construction</h3><p class="muted">Enums become string-literal unions; output passes <code>tsc --strict</code>.</p></div>
     </div>
   </div>
