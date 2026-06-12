@@ -1,0 +1,50 @@
+name: Bug report
+description: Something generated incorrectly, or the tool errored.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for the report! Please fill in as much as you can.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What did you expect, and what did you get instead?
+    validations:
+      required: true
+  - type: textarea
+    id: command
+    attributes:
+      label: Command / options used
+      description: The exact `wp-rest-typegen …` command (redact private URLs/tokens).
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: schema
+    attributes:
+      label: Relevant JSON Schema slice
+      description: >
+        For wrong output, paste the offending part of the route's `OPTIONS`
+        response so it can be reproduced offline. This is the single most useful
+        thing you can include.
+      render: json
+  - type: textarea
+    id: output
+    attributes:
+      label: Generated output / error
+      render: text
+  - type: input
+    id: node
+    attributes:
+      label: Node version
+      placeholder: "v22.x"
+    validations:
+      required: true
+  - type: input
+    id: pkg
+    attributes:
+      label: wp-rest-typegen version
+      placeholder: "0.1.0"
+    validations:
+      required: true

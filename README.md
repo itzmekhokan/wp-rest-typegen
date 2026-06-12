@@ -1,5 +1,10 @@
 # wp-rest-typegen
 
+[![CI](https://github.com/itzmekhokan/wp-rest-typegen/actions/workflows/ci.yml/badge.svg)](https://github.com/itzmekhokan/wp-rest-typegen/actions/workflows/ci.yml)
+[![npm](https://img.shields.io/npm/v/wp-rest-typegen.svg)](https://www.npmjs.com/package/wp-rest-typegen)
+[![node](https://img.shields.io/node/v/wp-rest-typegen.svg)](https://nodejs.org)
+[![license](https://img.shields.io/npm/l/wp-rest-typegen.svg)](./LICENSE)
+
 Generate TypeScript types straight from a **live WordPress REST API** — not just core
 endpoints, but every custom post type, custom field (`register_rest_field`), and
 taxonomy registered on the site. **Zero runtime dependencies** (Node 22's built-in
