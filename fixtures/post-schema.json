@@ -1,0 +1,76 @@
+{
+	"schema": {
+		"$schema": "http://json-schema.org/draft-04/schema#",
+		"title": "post",
+		"type": "object",
+		"properties": {
+			"id": {
+				"description": "Unique identifier for the post.",
+				"type": "integer",
+				"context": ["view", "edit", "embed"],
+				"readonly": true
+			},
+			"date": {
+				"description": "The date the post was published, in the site's timezone.",
+				"type": ["string", "null"],
+				"format": "date-time",
+				"context": ["view", "edit", "embed"]
+			},
+			"slug": {
+				"description": "An alphanumeric identifier for the post unique to its type.",
+				"type": "string",
+				"context": ["view", "edit", "embed"]
+			},
+			"status": {
+				"description": "A named status for the post.",
+				"type": "string",
+				"enum": ["publish", "future", "draft", "pending", "private"],
+				"context": ["view", "edit"]
+			},
+			"title": {
+				"description": "The title for the post.",
+				"type": "object",
+				"context": ["view", "edit", "embed"],
+				"properties": {
+					"raw": {
+						"description": "Title for the post, as it exists in the database.",
+						"type": "string",
+						"context": ["edit"]
+					},
+					"rendered": {
+						"description": "HTML title for the post, transformed for display.",
+						"type": "string",
+						"context": ["view", "edit", "embed"],
+						"readonly": true
+					}
+				}
+			},
+			"sticky": {
+				"description": "Whether or not the post should be treated as sticky.",
+				"type": "boolean",
+				"context": ["view", "edit"]
+			},
+			"categories": {
+				"description": "The terms assigned in the category taxonomy.",
+				"type": "array",
+				"items": { "type": "integer" },
+				"context": ["view", "edit"]
+			},
+			"meta": {
+				"description": "Meta fields.",
+				"type": "object",
+				"context": ["view", "edit"],
+				"properties": {
+					"footnotes": {
+						"type": "string"
+					}
+				}
+			},
+			"_links": {
+				"type": "object",
+				"context": ["view", "edit", "embed"],
+				"readonly": true
+			}
+		}
+	}
+}

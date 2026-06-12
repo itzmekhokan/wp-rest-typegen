@@ -1,0 +1,47 @@
+{
+	"name": "wp-rest-typegen",
+	"version": "0.1.0",
+	"description": "Generate TypeScript types from a live WordPress REST API — core endpoints plus custom post types, fields, and taxonomies. Zero dependencies.",
+	"keywords": [
+		"wordpress",
+		"rest-api",
+		"typescript",
+		"codegen",
+		"types",
+		"gutenberg"
+	],
+	"type": "module",
+	"bin": {
+		"wp-rest-typegen": "src/cli.ts"
+	},
+	"exports": {
+		".": "./src/index.ts"
+	},
+	"files": [
+		"src",
+		"README.md"
+	],
+	"scripts": {
+		"demo": "node src/cli.ts --input fixtures/post-schema.json --context edit",
+		"test": "node --test 'tests/*.test.ts'",
+		"typecheck": "tsc --noEmit"
+	},
+	"engines": {
+		"node": ">=22.6.0"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/itzmekhokan/wp-rest-typegen.git"
+	},
+	"homepage": "https://itzmekhokan.github.io/wp-rest-typegen/",
+	"bugs": {
+		"url": "https://github.com/itzmekhokan/wp-rest-typegen/issues"
+	},
+	"license": "GPL-2.0-or-later",
+	"author": "Khokan Sardar",
+	"dependencies": {},
+	"devDependencies": {
+		"@types/node": "^22.0.0",
+		"typescript": "^5.4.0"
+	}
+}

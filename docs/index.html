@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>wp-rest-typegen — TypeScript types from a live WordPress REST API</title>
+<meta name="description" content="Generate TypeScript types straight from a live WordPress REST API — core endpoints plus custom post types, fields, and taxonomies. Zero runtime dependencies." />
+<style>
+  :root {
+    --bg: #0e1116; --panel: #161b22; --border: #2a313c;
+    --fg: #e6edf3; --muted: #9aa7b4; --accent: #4c9aff; --accent2: #7ee787;
+    --code: #0b0f14; --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--fg);
+    font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+  header.hero {
+    padding: 72px 0 48px; text-align: center;
+    border-bottom: 1px solid var(--border);
+    background: radial-gradient(1200px 400px at 50% -10%, rgba(76,154,255,.12), transparent);
+  }
+  .hero h1 { font-size: 2.6rem; margin: 0 0 .3em; letter-spacing: -.02em; }
+  .hero p.tag { font-size: 1.2rem; color: var(--muted); margin: 0 auto 1.4em; max-width: 620px; }
+  .badges { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 24px; }
+  .badge { font: 12px var(--mono); color: var(--muted); border: 1px solid var(--border);
+    background: var(--panel); padding: 4px 10px; border-radius: 20px; }
+  .cta { display: inline-flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+  .btn { display: inline-block; padding: 10px 20px; border-radius: 8px; font-weight: 600; }
+  .btn.primary { background: var(--accent); color: #07101f; }
+  .btn.ghost { border: 1px solid var(--border); color: var(--fg); }
+  section { padding: 44px 0; border-bottom: 1px solid var(--border); }
+  h2 { font-size: 1.5rem; margin: 0 0 .6em; letter-spacing: -.01em; }
+  h3 { font-size: 1.05rem; margin: 1.6em 0 .4em; color: var(--fg); }
+  p { color: var(--fg); }
+  .muted { color: var(--muted); }
+  pre, code { font-family: var(--mono); }
+  pre { background: var(--code); border: 1px solid var(--border); border-radius: 10px;
+    padding: 16px 18px; overflow-x: auto; font-size: 13.5px; line-height: 1.6; }
+  :not(pre) > code { background: var(--panel); border: 1px solid var(--border);
+    padding: 1px 6px; border-radius: 5px; font-size: 13px; }
+  .tok-c { color: var(--muted); } .tok-k { color: #ff7b72; } .tok-s { color: var(--accent2); }
+  .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 12px; }
+  .card { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; }
+  .card h3 { margin-top: 0; }
+  table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 14.5px; }
+  th, td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { color: var(--muted); font-weight: 600; }
+  td code { white-space: nowrap; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  footer { padding: 36px 0 64px; text-align: center; color: var(--muted); font-size: 14px; }
+  @media (max-width: 680px) { .cards, .two { grid-template-columns: 1fr; } .hero h1 { font-size: 2rem; } }
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <h1>wp-rest-typegen</h1>
+    <p class="tag">Generate TypeScript types straight from a <strong>live WordPress REST API</strong> — core endpoints <em>plus</em> your custom post types, fields, and taxonomies. Zero runtime dependencies.</p>
+    <div class="badges">
+      <span class="badge">npm i -D wp-rest-typegen</span>
+      <span class="badge">Node ≥ 22.6</span>
+      <span class="badge">0 dependencies</span>
+      <span class="badge">GPL-2.0-or-later</span>
+    </div>
+    <div class="cta">
+      <a class="btn primary" href="#quickstart">Quick start</a>
+      <a class="btn ghost" href="https://github.com/itzmekhokan/wp-rest-typegen">GitHub →</a>
+    </div>
+  </div>
+</header>
+
+<section id="why">
+  <div class="wrap">
+    <h2>Why</h2>
+    <p>WordPress already publishes a full JSON Schema for every resource (via an <code>OPTIONS</code> request to each route). Most projects still hand-write these types or reach for a heavy generic OpenAPI generator that knows nothing about WordPress. <strong>wp-rest-typegen</strong> reads the schema your site is already serving and emits clean, WP-aware TypeScript — including the <code>view</code> / <code>edit</code> / <code>embed</code> <em>context</em> model that generic tools miss.</p>
+    <div class="cards">
+      <div class="card"><h3>Discovers everything</h3><p class="muted">Core routes, custom post types, <code>register_rest_field</code> additions, and taxonomies — pulled from the live route index.</p></div>
+      <div class="card"><h3>Context-aware</h3><p class="muted">Emit <code>view</code>, <code>edit</code>, or <code>embed</code> shapes. Edit-only fields like <code>title.raw</code> appear only where they should.</p></div>
+      <div class="card"><h3>Zero runtime deps</h3><p class="muted">Built on Node 22's native <code>fetch</code> and TypeScript execution. No build step, nothing to audit.</p></div>
+      <div class="card"><h3>Type-safe by construction</h3><p class="muted">Enums become string-literal unions; output passes <code>tsc --strict</code>.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="quickstart">
+  <div class="wrap">
+    <h2>Quick start</h2>
+<pre><span class="tok-c"># install as a dev dependency</span>
+npm install --save-dev wp-rest-typegen
+
+<span class="tok-c"># generate types for the wp/v2 namespace</span>
+npx wp-rest-typegen https://example.com --namespace wp/v2 -o src/types/wp.d.ts</pre>
+    <p class="muted">Then import the generated types in your plugin / theme / block code:</p>
+<pre><span class="tok-k">import</span> apiFetch <span class="tok-k">from</span> <span class="tok-s">'@wordpress/api-fetch'</span>;
+<span class="tok-k">import type</span> { Post } <span class="tok-k">from</span> <span class="tok-s">'./types/wp.d.ts'</span>;
+
+<span class="tok-k">const</span> posts = <span class="tok-k">await</span> apiFetch&lt;Post[]&gt;({ path: <span class="tok-s">'/wp/v2/posts'</span> });
+posts[0].status; <span class="tok-c">// "publish" | "draft" | ... — autocompletes &amp; type-checks</span></pre>
+  </div>
+</section>
+
+<section id="context">
+  <div class="wrap">
+    <h2>The context model</h2>
+    <p>The same resource differs by context. WordPress exposes edit-only fields (e.g. <code>title.raw</code>) only under <code>edit</code>. wp-rest-typegen honours that:</p>
+    <div class="two">
+<pre><span class="tok-c">// --context view</span>
+<span class="tok-k">export interface</span> Post {
+  title: { rendered: <span class="tok-k">string</span> };
+}</pre>
+<pre><span class="tok-c">// --context edit</span>
+<span class="tok-k">export interface</span> Post {
+  title: { raw: <span class="tok-k">string</span>; rendered: <span class="tok-k">string</span> };
+}</pre>
+    </div>
+  </div>
+</section>
+
+<section id="cli">
+  <div class="wrap">
+    <h2>CLI options</h2>
+    <table>
+      <tr><th>Flag</th><th>Description</th></tr>
+      <tr><td><code>&lt;site-url&gt;</code></td><td>Site URL (positional) or <code>--url</code>.</td></tr>
+      <tr><td><code>--input &lt;file&gt;</code></td><td>Read schemas from a local JSON dump instead of HTTP.</td></tr>
+      <tr><td><code>-o, --out</code></td><td>Output file (defaults to stdout).</td></tr>
+      <tr><td><code>--context</code></td><td><code>view</code> | <code>edit</code> | <code>embed</code> (default <code>view</code>).</td></tr>
+      <tr><td><code>--include</code></td><td>Comma-separated rest bases to keep.</td></tr>
+      <tr><td><code>--exclude</code></td><td>Comma-separated rest bases to drop.</td></tr>
+      <tr><td><code>--namespace</code></td><td>Only routes in this namespace, e.g. <code>wp/v2</code>.</td></tr>
+      <tr><td><code>--header k:v</code></td><td>Extra request header (repeatable) — e.g. for auth.</td></tr>
+      <tr><td><code>--insecure</code></td><td>Skip TLS verification (self-signed certs, e.g. <code>*.local</code>).</td></tr>
+      <tr><td><code>--no-registry</code></td><td>Omit the <code>WPRestTypes</code> registry interface.</td></tr>
+    </table>
+
+    <h3>Local / self-signed sites</h3>
+    <p class="muted">Local by Flywheel, DevKinsta and friends serve <code>https://*.local</code> with a self-signed certificate that Node rejects. Target the plain-HTTP URL, or pass <code>--insecure</code>:</p>
+<pre>npx wp-rest-typegen https://testwp.local --insecure -o src/types/wp.d.ts</pre>
+  </div>
+</section>
+
+<section id="api">
+  <div class="wrap">
+    <h2>Programmatic API</h2>
+<pre><span class="tok-k">import</span> { discover, generate } <span class="tok-k">from</span> <span class="tok-s">'wp-rest-typegen'</span>;
+
+<span class="tok-k">const</span> resources = <span class="tok-k">await</span> discover(<span class="tok-s">'https://example.com'</span>, { namespace: <span class="tok-s">'wp/v2'</span> });
+<span class="tok-k">const</span> dts = generate(resources, { context: <span class="tok-s">'view'</span> });</pre>
+    <p class="muted">Every run also emits a <code>WPRestTypes</code> interface mapping each REST base to its type — handy for generic, base-keyed fetch helpers.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p><a href="https://github.com/itzmekhokan/wp-rest-typegen">github.com/itzmekhokan/wp-rest-typegen</a> · GPL-2.0-or-later · by Khokan Sardar</p>
+  </div>
+</footer>
+</body>
+</html>
