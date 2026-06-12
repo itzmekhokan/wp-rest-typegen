@@ -84,6 +84,7 @@ async function main(argv: string[]): Promise<number> {
 	const { values, positionals } = parseArgs({
 		args: argv,
 		allowPositionals: true,
+		allowNegative: true, // enables `--no-registry`
 		options: {
 			url: { type: 'string' },
 			input: { type: 'string' },

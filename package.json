@@ -1,6 +1,6 @@
 {
 	"name": "wp-rest-typegen",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"description": "Generate TypeScript types from a live WordPress REST API — core endpoints plus custom post types, fields, and taxonomies. Zero dependencies.",
 	"keywords": [
 		"wordpress",
@@ -20,7 +20,8 @@
 		".": {
 			"types": "./dist/index.d.ts",
 			"default": "./dist/index.js"
-		}
+		},
+		"./package.json": "./package.json"
 	},
 	"files": [
 		"dist",
@@ -34,7 +35,7 @@
 		"prepublishOnly": "npm run build && npm test"
 	},
 	"engines": {
-		"node": ">=20.0.0"
+		"node": ">=20.16.0"
 	},
 	"repository": {
 		"type": "git",
