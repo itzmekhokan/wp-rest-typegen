@@ -1,9 +1,9 @@
 # wp-rest-typegen
 
 [![CI](https://github.com/itzmekhokan/wp-rest-typegen/actions/workflows/ci.yml/badge.svg)](https://github.com/itzmekhokan/wp-rest-typegen/actions/workflows/ci.yml)
-[![npm](https://img.shields.io/npm/v/wp-rest-typegen.svg)](https://www.npmjs.com/package/wp-rest-typegen)
-[![node](https://img.shields.io/node/v/wp-rest-typegen.svg)](https://nodejs.org)
-[![license](https://img.shields.io/npm/l/wp-rest-typegen.svg)](./LICENSE)
+[![npm](https://img.shields.io/npm/v/wp-rest-typegen)](https://www.npmjs.com/package/wp-rest-typegen)
+[![node](https://img.shields.io/node/v/wp-rest-typegen)](https://nodejs.org)
+[![license](https://img.shields.io/npm/l/wp-rest-typegen)](./LICENSE)
 
 Generate TypeScript types straight from a **live WordPress REST API** — not just core
 endpoints, but every custom post type, custom field (`register_rest_field`), and
@@ -105,20 +105,7 @@ export interface WPRestTypes {
 
 ## Changelog
 
-### 0.1.2
-- Fix `--no-registry`, which was advertised but threw "Unknown option" (enabled
-  `parseArgs` negation).
-- Expose the `./package.json` subpath so tooling can read it.
-- Add CLI subprocess integration tests.
-
-### 0.1.1
-- Ship compiled JavaScript in `dist/` so the package runs when installed from npm
-  (Node refuses to strip TypeScript types under `node_modules`). Runtime stays
-  dependency-free. Requires Node ≥ 20.16.
-
-### 0.1.0
-- Initial release. **Deprecated** — shipped raw `.ts` and fails on install; use
-  0.1.1 or later.
+See [CHANGELOG.md](./CHANGELOG.md) for the full release history.
 
 ## License
 
